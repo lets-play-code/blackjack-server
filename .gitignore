@@ -1,0 +1,9 @@
+*.swp
+.idea/
+.gradle/
+build/
+*.jar
+*.war
+*.ipr
+*.iml
+*.iws
