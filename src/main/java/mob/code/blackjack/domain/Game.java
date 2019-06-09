@@ -1,5 +1,6 @@
 package mob.code.blackjack.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,6 +21,7 @@ public class Game {
         this.player = player;
     }
 
-    private List<String> host;
-    private List<String> player;
+    private List<String> host = new ArrayList<>();
+    private List<String> player = new ArrayList<>();
+
 }

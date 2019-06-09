@@ -1,6 +1,8 @@
 package mob.code.blackjack.controller;
 
 import mob.code.blackjack.domain.Game;
+import mob.code.blackjack.domain.GameCenter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static java.util.Arrays.asList;
@@ -9,6 +11,9 @@ import static java.util.Arrays.asList;
 @RequestMapping("/")
 @CrossOrigin(origins = "http://localhost:8090")
 public class GameController {
+
+    @Autowired
+    GameCenter gameCenter;
 
     @GetMapping("ping")
     public String ping() {
@@ -22,10 +27,7 @@ public class GameController {
     }
     @PostMapping("startgame")
     public Game startGame(){
-        Game game = new Game();
-        game.setHost(asList("B8"));
-        game.setPlayer(asList("A8","C8"));
-        return game;
+        return gameCenter.startGame();
     }
 
 }
