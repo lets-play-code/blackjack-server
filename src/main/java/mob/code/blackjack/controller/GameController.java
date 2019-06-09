@@ -18,7 +18,7 @@ public class GameController {
     @GetMapping("card")
     public String card() {
         //See https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
-        return "A1";
+        return "BB";
     }
 
 }
