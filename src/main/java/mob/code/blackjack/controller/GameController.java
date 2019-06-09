@@ -1,6 +1,9 @@
 package mob.code.blackjack.controller;
 
+import mob.code.blackjack.domain.Game;
 import org.springframework.web.bind.annotation.*;
+
+import static java.util.Arrays.asList;
 
 @RestController
 @RequestMapping("/")
@@ -18,11 +21,11 @@ public class GameController {
         return "BB";
     }
     @PostMapping("startgame")
-    public String startGame(){
-        return "{\n" +
-                "            \"host\":[\"B8\"],\n" +
-                "            \"player\":[\"A8\",\"C8\"]\n" +
-                "           }";
+    public Game startGame(){
+        Game game = new Game();
+        game.setHost(asList("B8"));
+        game.setPlayer(asList("A8","C8"));
+        return game;
     }
 
 }
