@@ -26,6 +26,10 @@ public class RestfulHelper {
         return restTemplate.exchange(fullUrl(url), HttpMethod.GET, entity, String.class);
     }
 
+    public ResponseEntity<String> post(String url) {
+        return restTemplate.exchange(fullUrl(url), HttpMethod.POST, entity, String.class);
+    }
+
     private String fullUrl(String entry) {
         return LOCALHOST + port + entry;
     }

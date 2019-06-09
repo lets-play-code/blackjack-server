@@ -1,9 +1,6 @@
 package mob.code.blackjack.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
@@ -19,6 +16,13 @@ public class GameController {
     public String card() {
         //See https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
         return "BB";
+    }
+    @PostMapping("startgame")
+    public String startGame(){
+        return "{\n" +
+                "            \"host\":[\"B8\"],\n" +
+                "            \"player\":[\"A8\",\"C8\"]\n" +
+                "           }";
     }
 
 }
