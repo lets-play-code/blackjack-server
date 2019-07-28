@@ -3,8 +3,6 @@ package mob.code.blackjack.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 
 @Component
 public class GameCenter {
@@ -12,6 +10,8 @@ public class GameCenter {
     @Autowired
     private Paiku paiku;
     private Game game;
+    @Autowired
+    private GameRule gameRule;
 
     public Game startGame() {
         game = new Game();
@@ -23,19 +23,16 @@ public class GameCenter {
 
     public GameResult closeDeal() {
 
-        List<String> host = game.getHost();
-        List<String> player = game.getPlayer();
-
-        int hostSum = host.stream().mapToInt(card -> Integer.parseInt(card.substring(1))).sum();
-        int playerSum = player.stream().mapToInt(card -> Integer.parseInt(card.substring(1))).sum();
+        boolean isHostWin = gameRule.isHostWin(game.getHost(), game.getPlayer());
 
         return new GameResult(){{
             setHost(new Player(){{
-                setWinner(hostSum > playerSum);
+                setWinner(isHostWin);
             }});
             setPlayer(new Player(){{
-                setWinner(hostSum <= playerSum);
+                setWinner(!isHostWin);
             }});
         }};
     }
+
 }
