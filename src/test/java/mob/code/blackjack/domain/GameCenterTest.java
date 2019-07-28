@@ -25,7 +25,7 @@ public class GameCenterTest {
 
     @Test
     public void start_game_should_fapai() {
-        when (paiku.deal()).thenReturn("A7","B7","C7");
+        givenCards("A7", "B7", "C7");
 
         Game game = gameCenter.startGame();
 
@@ -36,7 +36,7 @@ public class GameCenterTest {
 
     @Test
     public void close_deal_should_return_game_result() {
-        when (paiku.deal()).thenReturn("A7","B7","C7");
+        givenCards("A7", "B7", "C7");
 
         Game game = gameCenter.startGame();
 
@@ -44,5 +44,21 @@ public class GameCenterTest {
 
         assertEquals(false, result.getHost().isWinner());
         assertEquals(true, result.getPlayer().isWinner());
+    }
+
+    @Test
+    public void close_deal_when_host_win() {
+        givenCards("A1", "B7", "C2");
+
+        Game game = gameCenter.startGame();
+
+        GameResult result = gameCenter.closeDeal();
+
+        assertEquals(true, result.getHost().isWinner());
+        assertEquals(false, result.getPlayer().isWinner());
+    }
+
+    private void givenCards(String first, String... others) {
+        when(paiku.deal()).thenReturn(first, others);
     }
 }

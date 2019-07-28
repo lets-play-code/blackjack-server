@@ -23,12 +23,10 @@ Feature: black jack
            """
            {
               "host": {
-                cards: ["B8"] ,
-                isWinner: false
+                winner: false
               },
               "player": {
-                cards: ["A8", "C8"] ,
-                isWinner: true
+                winner: true
               }
            }
            """
