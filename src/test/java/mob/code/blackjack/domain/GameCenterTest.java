@@ -33,4 +33,16 @@ public class GameCenterTest {
         assertEquals(asList("A7","C7"), game.getPlayer());
 
     }
+
+    @Test
+    public void close_deal_should_return_game_result() {
+        when (paiku.deal()).thenReturn("A7","B7","C7");
+
+        Game game = gameCenter.startGame();
+
+        GameResult result = gameCenter.closeDeal();
+
+        assertEquals(false, result.getHost().isWinner());
+        assertEquals(true, result.getPlayer().isWinner());
+    }
 }

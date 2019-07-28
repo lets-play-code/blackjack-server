@@ -1,5 +1,6 @@
 package cucumber.steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -56,5 +57,10 @@ public class BlackjackStep {
     @When("I start game")
     public void i_start_game() {
       response = RestfulHelper.connect(port).post("/startgame");
+    }
+
+    @When("^I close deal$")
+    public void iCloseDeal() {
+        response = RestfulHelper.connect(port).post("/closedeal");
     }
 }

@@ -17,4 +17,14 @@ public class GameCenter {
         game.getPlayer().add(paiku.deal());
         return game;
     }
+
+    public GameResult closeDeal() {
+
+        return new GameResult(){{
+            setHost(new Player());
+            setPlayer(new Player(){{
+                setWinner(true);
+            }});
+        }};
+    }
 }
