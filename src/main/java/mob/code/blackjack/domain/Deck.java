@@ -1,7 +1,27 @@
 package mob.code.blackjack.domain;
 
-public interface Deck {
-    String deal();
+import org.springframework.stereotype.Component;
 
-    void shuffle();
+import java.util.Iterator;
+
+@Component
+public class Deck {
+
+    private CardsShuffler shuffler;
+
+    public Deck(CardsShuffler shuffler) {
+
+        this.shuffler = shuffler;
+    }
+
+    private Iterator<String> paiku;
+
+    public String deal() {
+        return paiku.next();
+    }
+
+    public void shuffle() {
+        paiku = shuffler.getCards().iterator();
+
+    }
 }
