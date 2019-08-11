@@ -2,19 +2,14 @@ package mob.code.blackjack.domain;
 
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
-
-import static java.util.Arrays.asList;
 
 @Component
-public class RealPaiku implements Paiku {
+public class RealDeck implements Deck {
 
     private CardsShuffler shuffler;
 
-    public RealPaiku(CardsShuffler shuffler) {
+    public RealDeck(CardsShuffler shuffler) {
 
         this.shuffler = shuffler;
     }

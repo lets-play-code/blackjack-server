@@ -1,6 +1,5 @@
 package mob.code.blackjack.domain;
 
-import javafx.beans.binding.When;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -24,7 +23,7 @@ public class GameCenterTest {
     GameCenter gameCenter = new GameCenter();
 
     @Mock
-    Paiku paiku;
+    Deck deck;
 
     @Mock
     GameRule gameRule;
@@ -33,10 +32,10 @@ public class GameCenterTest {
     public void start_game_should_fapai() {
         givenCards("A7", "B7", "C7");
 
-        Game game = gameCenter.startGame();
+        GameDto gameDto = gameCenter.startGame();
 
-        assertEquals(asList("B7"), game.getHost());
-        assertEquals(asList("A7","C7"), game.getPlayer());
+        assertEquals(asList("B7"), gameDto.getHost());
+        assertEquals(asList("A7","C7"), gameDto.getPlayer());
 
     }
 
@@ -45,7 +44,7 @@ public class GameCenterTest {
         when(gameRule.isHostWin(anyList(), anyList())).thenReturn(false);
         givenCards("A7", "B7", "C7");
 
-        Game game = gameCenter.startGame();
+        GameDto gameDto = gameCenter.startGame();
 
         GameResult result = gameCenter.closeDeal();
 
@@ -55,6 +54,6 @@ public class GameCenterTest {
     }
 
     private void givenCards(String first, String... others) {
-        when(paiku.deal()).thenReturn(first, others);
+        when(deck.deal()).thenReturn(first, others);
     }
 }

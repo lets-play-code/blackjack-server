@@ -8,23 +8,23 @@ import org.springframework.stereotype.Component;
 public class GameCenter {
 
     @Autowired
-    private Paiku paiku;
-    private Game game;
+    private Deck deck;
+    private GameDto gameDto;
     @Autowired
     private GameRule gameRule;
 
-    public Game startGame() {
-        game = new Game();
-        paiku.shuffle();
-        game.getPlayer().add(paiku.deal());
-        game.getHost().add(paiku.deal());
-        game.getPlayer().add(paiku.deal());
-        return game;
+    public GameDto startGame() {
+        gameDto = new GameDto();
+        deck.shuffle();
+        gameDto.getPlayer().add(deck.deal());
+        gameDto.getHost().add(deck.deal());
+        gameDto.getPlayer().add(deck.deal());
+        return gameDto;
     }
 
     public GameResult closeDeal() {
 
-        boolean isHostWin = gameRule.isHostWin(game.getHost(), game.getPlayer());
+        boolean isHostWin = gameRule.isHostWin(gameDto.getHost(), gameDto.getPlayer());
 
         return new GameResult(){{
             setHost(new Player(){{
@@ -36,8 +36,8 @@ public class GameCenter {
         }};
     }
 
-    public Game deal() {
-        game.getPlayer().add(paiku.deal());
-        return game;
+    public GameDto deal() {
+        gameDto.getPlayer().add(deck.deal());
+        return gameDto;
     }
 }

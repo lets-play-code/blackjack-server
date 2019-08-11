@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Game {
+public class GameDto {
     public List<String> getHost() {
         return host;
     }
