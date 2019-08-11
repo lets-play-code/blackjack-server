@@ -14,13 +14,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-public class GameCenterTest {
+public class GameTest {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    GameCenter gameCenter = new GameCenter();
+    Game game = new Game();
 
     @Mock
     Deck deck;
@@ -32,7 +32,7 @@ public class GameCenterTest {
     public void start_game_should_fapai() {
         givenCards("A7", "B7", "C7");
 
-        GameDto gameDto = gameCenter.startGame();
+        GameDto gameDto = game.startGame();
 
         assertEquals(asList("B7"), gameDto.getHost());
         assertEquals(asList("A7","C7"), gameDto.getPlayer());
@@ -44,9 +44,9 @@ public class GameCenterTest {
         when(gameRule.isHostWin(anyList(), anyList())).thenReturn(false);
         givenCards("A7", "B7", "C7");
 
-        GameDto gameDto = gameCenter.startGame();
+        GameDto gameDto = game.startGame();
 
-        GameResult result = gameCenter.closeDeal();
+        GameResult result = game.closeDeal();
 
         verify(gameRule).isHostWin(asList("B7"), asList("A7", "C7"));
         assertEquals(false, result.getHost().isWinner());

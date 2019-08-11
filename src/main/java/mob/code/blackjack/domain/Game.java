@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class GameCenter {
+public class Game {
 
     @Autowired
     private Deck deck;
