@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Primary;
 import static org.mockito.Mockito.mock;
 
 @Configuration
-public class StubPaikuFactory {
+public class StubShufflerFactory {
     @Bean
     @Primary
-    public Paiku create() {
-        return mock(Paiku.class);
+    public CardsShuffler create() {
+        return mock(CardsShuffler.class);
     }
 
 }

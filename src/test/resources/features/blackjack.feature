@@ -30,3 +30,15 @@ Feature: black jack
               }
            }
            """
+
+  Scenario: deal
+    Given a paiku "A8" "B8" "C8" "A1"
+    And I start game
+    When I deal
+    Then the server will return
+          """
+           {
+            "host":["B8"],
+            "player":["A8","C8","A1"]
+           }
+           """

@@ -34,6 +34,8 @@ public class GameController {
         return gameCenter.closeDeal();
     }
 
-
-
+    @PostMapping("deal")
+    public Game deal() {
+        return gameCenter.deal();
+    }
 }

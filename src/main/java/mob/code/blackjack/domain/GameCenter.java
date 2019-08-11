@@ -15,6 +15,7 @@ public class GameCenter {
 
     public Game startGame() {
         game = new Game();
+        paiku.shuffle();
         game.getPlayer().add(paiku.deal());
         game.getHost().add(paiku.deal());
         game.getPlayer().add(paiku.deal());
@@ -35,4 +36,8 @@ public class GameCenter {
         }};
     }
 
+    public Game deal() {
+        game.getPlayer().add(paiku.deal());
+        return game;
+    }
 }

@@ -6,6 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.util.RestfulHelper;
 import mob.code.blackjack.BlackjackServerApplication;
+import mob.code.blackjack.domain.CardsShuffler;
 import mob.code.blackjack.domain.Paiku;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -16,6 +17,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.ContextConfiguration;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +25,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BlackjackStep {
     @Autowired
-    private Paiku paiku;
+    private CardsShuffler shuffler;
 
     @LocalServerPort
     private int port;
@@ -51,7 +53,12 @@ public class BlackjackStep {
 
     @Given("a paiku {string} {string} {string}")
     public void a_paiku(String string, String string2, String string3) {
-        when(paiku.deal()).thenReturn(string, string2, string3);
+        when(shuffler.getCards()).thenReturn(asList(string, string2, string3));
+    }
+
+    @Given("a paiku {string} {string} {string} {string}")
+    public void a_paiku(String string, String string2, String string3, String string4) {
+        when(shuffler.getCards()).thenReturn(asList(string, string2, string3, string4));
     }
 
     @When("I start game")
@@ -62,5 +69,10 @@ public class BlackjackStep {
     @When("^I close deal$")
     public void iCloseDeal() {
         response = RestfulHelper.connect(port).post("/closedeal");
+    }
+
+    @When("I deal")
+    public void i_deal() {
+        response = RestfulHelper.connect(port).post("/deal");
     }
 }
