@@ -10,8 +10,14 @@ Feature: black jack
     Then the server will return
            """
            {
-            "host":["B8"],
-            "player":["A8","C8"]
+              "host": {
+                cards:["B8"],
+                winner: false
+              },
+              "player": {
+                cards:["A8","C8"],
+                winner: false
+              }
            }
            """
 
@@ -40,7 +46,13 @@ Feature: black jack
     Then the server will return
           """
            {
-            "host":["B8"],
-            "player":["A8","C8","A1"]
+              "host": {
+                cards:["B8"],
+                winner: false
+              },
+              "player": {
+                cards:["A8","C8","A1"],
+                winner: false
+              }
            }
            """

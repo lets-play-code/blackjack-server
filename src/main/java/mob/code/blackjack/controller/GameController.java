@@ -1,6 +1,5 @@
 package mob.code.blackjack.controller;
 
-import mob.code.blackjack.domain.GameDto;
 import mob.code.blackjack.domain.Game;
 import mob.code.blackjack.domain.GameResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class GameController {
         return "BB";
     }
     @PostMapping("startgame")
-    public GameDto startGame(){
+    public GameResult startGame(){
         return game.startGame();
     }
 
@@ -35,7 +34,7 @@ public class GameController {
     }
 
     @PostMapping("deal")
-    public GameDto deal() {
+    public GameResult deal() {
         return game.deal();
     }
 }

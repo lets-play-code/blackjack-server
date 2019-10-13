@@ -7,14 +7,16 @@ import java.util.List;
 @Component
 public class GameRule {
     boolean isHostWin(List<String> hostCards, List<String> playerCards) {
-        int hostSum = hostCards.stream()
-                .mapToInt(card -> getCardNum(card))
-                .sum();
-        int playerSum = playerCards.stream()
-                .mapToInt(card -> getCardNum(card))
-                .sum();
+        int hostSum = sum(hostCards);
+        int playerSum = sum(playerCards);
 
         return hostSum > playerSum;
+    }
+
+    public int sum(List<String> cards){
+        return cards.stream()
+                .mapToInt(card -> getCardNum(card))
+                .sum();
     }
 
     private int getCardNum(String card) {

@@ -1,32 +1,16 @@
 package mob.code.blackjack.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+    private List<String> cards = new ArrayList<>();
 
-    private boolean isWinner;
-    private List<String> cards;
-
+    public void add(String card) {
+        cards.add(card);
+    }
 
     public List<String> getCards() {
         return cards;
     }
-
-    public void setCards(List<String> cards) {
-        this.cards = cards;
-    }
-
-    public boolean isWinner() {
-        return isWinner;
-    }
-
-    public void setWinner(boolean winner) {
-        isWinner = winner;
-    }
-
-    public int sum(){
-
-        return 0;
-    }
-
 }

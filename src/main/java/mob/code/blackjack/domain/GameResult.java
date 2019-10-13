@@ -1,23 +1,23 @@
 package mob.code.blackjack.domain;
 
 public class GameResult {
-    private Player host;
+    private PlayerDto host;
 
-    public void setPlayer(Player player) {
+    public void setPlayer(PlayerDto player) {
         this.player = player;
     }
 
-    private Player player;
+    private PlayerDto player;
 
-    public Player getHost() {
+    public PlayerDto getHost() {
         return host;
     }
 
-    public void setHost(Player host) {
+    public void setHost(PlayerDto host) {
         this.host = host;
     }
 
-    public Player getPlayer() {
+    public PlayerDto getPlayer() {
         return player;
     }
 }

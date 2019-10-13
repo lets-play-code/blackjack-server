@@ -3,68 +3,80 @@ package mob.code.blackjack.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 
 @Component
 public class Game {
 
+    public static final int HOST_DEAL_THRESHOLD = 17;
     @Autowired
     private Deck deck;
-    private GameDto gameDto;
     @Autowired
     private GameRule gameRule;
 
-    public GameDto startGame() {
-        gameDto = new GameDto();
-        deck.shuffle();
-        gameDto.getPlayer().add(deck.deal());
-        gameDto.getHost().add(deck.deal());
-        gameDto.getPlayer().add(deck.deal());
-        return gameDto;
+    private Player host;
+    private Player player;
+
+    public Game() {
     }
 
-    public GameResult closeDeal() {
-        while(sum(gameDto.getHost())<17){
-            gameDto.getHost().add(deck.deal());
-        }
+    public Game(GameRule gameRule) {
+        this.gameRule = gameRule;
+    }
 
-        boolean isHostWin = gameRule.isHostWin(gameDto.getHost(), gameDto.getPlayer());
+    public GameResult startGame() {
 
-        return new GameResult(){{
-            setHost(new Player(){{
-                setWinner(isHostWin);
-                setCards(gameDto.getHost());
+        deck.shuffle();
+
+        player = new Player();
+        host = new Player();
+        player.add(deck.deal());
+        host.add(deck.deal());
+        player.add(deck.deal());
+
+
+
+
+
+        return new GameResult() {{
+            setHost(new PlayerDto() {{
+                setCards(host.getCards());
             }});
-            setPlayer(new Player(){{
-                setWinner(!isHostWin);
-                setCards(gameDto.getPlayer());
+            setPlayer(new PlayerDto() {{
+                setCards(player.getCards());
             }});
         }};
     }
 
-    public GameDto deal() {
-        gameDto.getPlayer().add(deck.deal());
-        return gameDto;
-    }
-
-    private int sum(List<String> cards){
-        return cards.stream()
-                .mapToInt(card -> getCardNum(card))
-                .sum();
-
-    }
-
-    private int getCardNum(String card) {
-        String cardCode = getCardCode(card);
-        if (cardCode.matches("[ABDE]")) {
-            return 10;
-        } else {
-            return Integer.parseInt(cardCode);
+    public GameResult closeDeal() {
+        while (gameRule.sum(host.getCards()) < HOST_DEAL_THRESHOLD) {
+            host.add(deck.deal());
         }
+
+        boolean isHostWin = gameRule.isHostWin(host.getCards(), player.getCards());
+
+        return new GameResult() {{
+            setHost(new PlayerDto() {{
+                setWinner(isHostWin);
+                setCards(host.getCards());
+            }});
+            setPlayer(new PlayerDto() {{
+                setWinner(!isHostWin);
+                setCards(player.getCards());
+            }});
+        }};
     }
 
-    private String getCardCode(String card) {
-        return card.substring(1);
+    public GameResult deal() {
+        player.add(deck.deal());
+        return new GameResult() {{
+            setHost(new PlayerDto() {{
+
+                setCards(host.getCards());
+            }});
+            setPlayer(new PlayerDto() {{
+                setCards(player.getCards());
+            }});
+        }};
     }
+
 }
