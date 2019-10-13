@@ -16,17 +16,19 @@ Feature: black jack
            """
 
   Scenario: close deal
-    Given a paiku "A8" "B8" "C8"
+    Given a paiku "A8" "B8" "C8" "BA"
     And I start game
     When I close deal
     Then the server will return
            """
            {
               "host": {
-                winner: false
+                cards:["B8","BA"],
+                winner: true
               },
               "player": {
-                winner: true
+                cards:["A8","C8"],
+                winner: false
               }
            }
            """
