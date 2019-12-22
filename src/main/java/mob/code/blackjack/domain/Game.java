@@ -68,6 +68,20 @@ public class Game {
 
     public GameResult deal() {
         player.add(deck.deal());
+        if (gameRule.sum(player.getCards()) > 21) {
+            return new GameResult() {{
+                setHost(new PlayerDto() {{
+                    setWinner(true);
+                    setCards(host.getCards());
+                }});
+                setPlayer(new PlayerDto() {{
+                    setCards(player.getCards());
+                }});
+            }};
+
+        }
+
+
         return new GameResult() {{
             setHost(new PlayerDto() {{
 

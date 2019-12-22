@@ -56,3 +56,21 @@ Feature: black jack
               }
            }
            """
+
+  Scenario: Player deal but lose
+    Given a paiku "AA" "BA" "CA" "A2"
+    And I start game
+    When I deal
+    Then the server will return
+          """
+           {
+              "host": {
+                cards:["BA"],
+                winner: true
+              },
+              "player": {
+                cards:["AA","CA","A2"],
+                winner: false
+              }
+           }
+           """
