@@ -32,11 +32,6 @@ public class Game {
         player.add(deck.deal());
         host.add(deck.deal());
         player.add(deck.deal());
-
-
-
-
-
         return new GameResult() {{
             setHost(new PlayerDto() {{
                 setCards(host.getCards());
@@ -51,7 +46,6 @@ public class Game {
         while (gameRule.sum(host.getCards()) < HOST_DEAL_THRESHOLD) {
             host.add(deck.deal());
         }
-
         boolean isHostWin = gameRule.isHostWin(host.getCards(), player.getCards());
 
         return new GameResult() {{
@@ -68,23 +62,11 @@ public class Game {
 
     public GameResult deal() {
         player.add(deck.deal());
-        if (gameRule.sum(player.getCards()) > 21) {
-            return new GameResult() {{
-                setHost(new PlayerDto() {{
-                    setWinner(true);
-                    setCards(host.getCards());
-                }});
-                setPlayer(new PlayerDto() {{
-                    setCards(player.getCards());
-                }});
-            }};
-
-        }
-
+        boolean playerLose = gameRule.isBust(player.getCards());
 
         return new GameResult() {{
             setHost(new PlayerDto() {{
-
+                setWinner(playerLose);
                 setCards(host.getCards());
             }});
             setPlayer(new PlayerDto() {{

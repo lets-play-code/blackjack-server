@@ -62,6 +62,17 @@ public class GameTest {
     }
 
     @Test
+    public void host_should_lose_with_bust() {
+        givenCards("AA", "B7", "CA", "B9","BA","B4","B5","B6");
+
+        game.startGame();
+        GameResult result = game.closeDeal();
+
+        assertEquals(asList("B7","B9","BA"), result.getHost().getCards());
+        assertTrue(result.getPlayer().isWinner());
+    }
+
+    @Test
     public void player_should_lose_with_bust() {
         givenCards("AA", "B7", "CA", "B2","B3","B4","B5","B6");
 
