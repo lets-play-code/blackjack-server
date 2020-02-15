@@ -1,4 +1,5 @@
 plugins {
+    id "au.com.dius.pact" version "4.0.0"
     id 'org.springframework.boot' version '2.1.5.RELEASE'
 	id 'java'
     id 'idea'
@@ -27,6 +28,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'au.com.dius:pact-jvm-provider-spring:4.0.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.cucumber:cucumber-java:4.3.1'
     testImplementation 'io.cucumber:cucumber-spring:4.3.1'
@@ -39,6 +41,27 @@ task cucumber {
             main = "cucumber.api.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = ['--plugin', 'pretty', '--glue', 'cucumber.steps', 'src/test/resources']
+        }
+    }
+}
+
+task startProvider {
+//    dependsOn bootRun
+    doLast {
+    }
+}
+
+task stopProvider {
+}
+
+pact {
+    serviceProviders {
+        backendProvider{
+            startProviderTask = startProvider
+            terminateProviderTask = stopProvider
+            hasPactWith('web page') {
+                pactSource = file('../page/pacts/web_page-backend.json')
+            }
         }
     }
 }
