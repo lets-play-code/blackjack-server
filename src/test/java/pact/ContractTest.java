@@ -6,12 +6,10 @@ import au.com.dius.pact.provider.junit.loader.PactFolder;
 import au.com.dius.pact.provider.junit.target.Target;
 import au.com.dius.pact.provider.junit.target.TestTarget;
 import au.com.dius.pact.provider.spring.SpringRestPactRunner;
-import au.com.dius.pact.provider.spring.target.MockMvcTarget;
 import au.com.dius.pact.provider.spring.target.SpringBootHttpTarget;
 import mob.code.blackjack.BlackjackServerApplication;
 import mob.code.blackjack.domain.CardsShuffler;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
@@ -39,7 +37,7 @@ public class ContractTest {
 
     @State("cards are A2, A1, B2, A3")
     public void cardState1() {
-        when(shuffler.getCards()).thenReturn(asList("A2", "A1", "B2", "A3", "AA", "AB", "AC"));
+        when(shuffler.getCards()).thenReturn(asList("A2", "A1", "B2", "A3"));
     }
 
     @State("cards are C1, C2, C3, C4")
